@@ -1,12 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en"> 
 <head>
-  <title>DICEY</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Dicey – Stranger Dating Casino</title>
 </head>
-<body style="background:black;color:white;text-align:center;padding-top:30vh;">
-  <h1>No profiles. No swipes. Just conversations.</h1>
-  <p>Talk to someone who wants to talk — right now.</p>
-  <button style="padding:15px 30px;font-size:18px;">Start Chatting (Free)</button>
+<body>
+
+<h1>🎲 Dicey</h1>
+<p>Talk to strangers. No matches. Pure chance.</p>
+
+<button id="login">Login with Google</button>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "XXXX",
+    authDomain: "dicey.firebaseapp.com",
+    projectId: "dicey",
+    storageBucket: "dicey.appspot.com",
+    messagingSenderId: "547215084841",
+    appId: "1:547215084841:web:8abea7a1ee9ee71e18fb38"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const provider = new GoogleAuthProvider();
+
+  document.getElementById("login").onclick = async () => {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    await setDoc(doc(db, "users", user.uid), {
+      uid: user.uid,
+      email: user.email,
+      tier: "FREE",
+      boosts: 0,
+      createdAt: Date.now()
+    });
+
+    alert("Welcome to Dicey 🎲");
+  };
+</script>
+
 </body>
 </html>
