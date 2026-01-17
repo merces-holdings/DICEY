@@ -1,284 +1,46 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
-  <style>
-#splash {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(12px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  transition: opacity 1s ease;
-}
-
-.splash-content {
-  text-align: center;
-  color: white;
-}
-
-.splash-content img {
-  width: 90px;
-  margin-bottom: 10px;
-}
-
-#splash.hide {
-  opacity: 0;
-  pointer-events: none;
-}
-  #home {
-  min-height: 100vh;
-  background: #0b0b0b;
-  color: white;
-  text-align: center;
-  padding-top: 80px;
-}
-
-.app-title {
-  font-size: 40px;
-  margin-bottom: 5px;
-}
-
-.headline {
-  opacity: 0.7;
-  margin-bottom: 40px;
-}
-
-.primary-btn {
-  background: linear-gradient(135deg, #ffb347, #ffcc33);
-  color: black;
-  border: none;
-  padding: 16px 28px;
-  font-size: 18px;
-  border-radius: 30px;
-}
-
-.subtext {
-  font-size: 13px;
-  opacity: 0.6;
-  margin-top: 10px;
-}
-
-.tiers {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 40px;
-}
-
-.tier-card {
-  background: rgba(255,255,255,0.08);
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 14px;
-}
-
-.crypto {
-  margin-top: 30px;
-  font-size: 12px;
-  opacity: 0.6;
-}
-  #chat {
-  background: #0b0b0b;
-  color: white;
-  height: 100vh;
-  padding: 10px;
-}
-
-#chatHeader {
-  display: flex;
-  justify-content: space-between;
-  opacity: 0.7;
-}
-
-#messages {
-  height: 70vh;
-  overflow-y: auto;
-  margin: 15px 0;
-}
-
-.msg {
-  margin-bottom: 8px;
-}
-
-#msgInput {
-  width: 75%;
-  padding: 10px;
-}
-
-#sendMsg {
-  width: 20%;
-}
-</style>
-  <meta charset="UTF-8">
-  <title>Dicey – Stranger Dating Casino</title>
+  <meta charset="UTF-8" />
+  <title>Slow Down</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div id="splash">
-  <div class="splash-content">
-<div class="logo-emoji">🎲</div>
-    <h1>Dicey</h1>
-    <p>Every connection is a roll of the dice</p>
+
+  <!-- HERO -->
+  <div class="container">
+    <h1 class="title">Read this slowly.</h1>
+
+    <div id="freeContent" class="content">
+      <p>You are not behind.</p>
+      <p>You are not late.</p>
+      <p>You are carrying more than most people see.</p>
+      <p>And yet, you are still here.</p>
+    </div>
+
+    <!-- LOCKED SECTION -->
+    <div id="lockedSection" class="locked">
+      <div class="blur"></div>
+      <div class="lock-box">
+        <p>You’ve reached the surface.</p>
+        <p>Go deeper.</p>
+
+        <button id="unlockBtn">Unlock for ₹29</button>
+        <p class="tiny">One-time • Instant • No account</p>
+      </div>
+    </div>
+
+    <!-- PAID CONTENT -->
+    <div id="paidContent" class="content hidden">
+      <p>Close your eyes for 10 seconds.</p>
+      <p>Breathe in slowly.</p>
+      <p>Hold.</p>
+      <p>Release.</p>
+      <p>You don’t need to solve everything tonight.</p>
+      <p>Rest is productive.</p>
+    </div>
   </div>
-</div>
-<div id="home">
 
-  <h1 class="app-title">🎲 Dicey</h1>
-  <p class="headline">Every connection is a roll of the dice</p>
-
-  <button id="startChat" class="primary-btn">
-    Talk to a Stranger
-  </button>
-
-  <p class="subtext">
-    Free · 5 min chats · 10/day
-  </p>
-
-  <div class="tiers">
-    <div class="tier-card">🎟 Free</div>
-    <div class="tier-card">💠 Adult</div>
-    <div class="tier-card">👑 Elite</div>
-  </div>
-
-  <p class="crypto">⚡ Crypto Accepted</p>
-
-</div>
-  <div id="chat" style="display:none;">
-
-  <div id="chatHeader">
-    <span>🎲 Stranger Chat</span>
-    <span id="timer">05:00</span>
-  </div>
-
-  <div id="messages"></div>
-
-  <input id="msgInput" placeholder="Type message..." />
-  <button id="sendMsg">Send</button>
-
-</div>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAKjzYqKj4mnriyjyIUkqlqj-39qEuCq2M",
-    authDomain: "dicey.firebaseapp.com",
-    projectId: "dicey",
-    storageBucket: "dicey.appspot.com",
-    messagingSenderId: "547215084841",
-    appId: "1:547215084841:web:8abea7a1ee9ee71e18fb38"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  import {
-  collection, addDoc, deleteDoc, doc,
-  query, getDocs, onSnapshot
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-let currentChatId = null;
-
-// START CHAT
-  const msgInput = document.getElementById("msgInput");
-document.getElementById("startChat").onclick = async () => {
-  document.getElementById("home").style.display = "none";
-  document.getElementById("chat").style.display = "block";
-
-  const waitingRef = collection(db, "waitingRoom");
-  const snapshot = await getDocs(waitingRef);
-
-  if (!snapshot.empty) {
-    const other = snapshot.docs[0];
-    currentChatId = "chat_" + Date.now();
-
-    await addDoc(collection(db, "activeChats"), {
-      users: [other.id, auth.currentUser.uid],
-      createdAt: Date.now()
-    });
-
-    await deleteDoc(doc(db, "waitingRoom", other.id));
-    listenMessages();
-    startTimer();
-  } else {
-    await addDoc(waitingRef, {
-      uid: auth.currentUser.uid,
-      joinedAt: Date.now()
-    });
-  }
-};
-  
-  
-
-document.getElementById("sendMsg").onclick = async () => {
-  const text = msgInput.value;
-  if (!text) return;
-
-  await addDoc(
-    collection(db, "activeChats", currentChatId, "messages"),
-    { text, time: Date.now() }
-  );
-
-  msgInput.value = "";
-};
-  function listenMessages() {
-  const msgRef = collection(db, "activeChats", currentChatId, "messages");
-
-  onSnapshot(msgRef, (snap) => {
-    document.getElementById("messages").innerHTML = "";
-    snap.forEach(doc => {
-      const d = doc.data();
-      const div = document.createElement("div");
-      div.className = "msg";
-      div.innerText = d.text;
-      document.getElementById("messages").appendChild(div);
-    });
-  });
-}
-
-document.getElementById("sendMsg").onclick = async () => {
-  const text = msgInput.value;
-  if (!text) return;
-
-  await addDoc(
-    collection(db, "activeChats", currentChatId, "messages"),
-    { text, time: Date.now() }
-  );
-
-  msgInput.value = "";
-};
-  function startTimer() {
-  let time = 300;
-  const timerEl = document.getElementById("timer");
-
-  const interval = setInterval(() => {
-    time--;
-    timerEl.innerText =
-      Math.floor(time / 60) + ":" + (time % 60).toString().padStart(2, "0");
-
-    if (time <= 0) {
-      clearInterval(interval);
-      alert("Chat ended 🎲");
-      location.reload();
-    }
-  }, 1000);
-}
-  
-  
-  
-  const provider = new GoogleAuthProvider();
-
-    alert("Welcome to Dicey 🎲");
-  };
-</script>
-<script>
-  setTimeout(() => {
-    document.getElementById("splash").classList.add("hide");
-  }, 3000);
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
