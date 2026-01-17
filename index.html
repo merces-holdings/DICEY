@@ -2,43 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Slow Down</title>
+  <title>Pause</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- HERO -->
-  <div class="container">
-    <h1 class="title">Read this slowly.</h1>
+  <!-- GRADIENT BACKGROUND -->
+  <div class="bg"></div>
 
-    <div id="freeContent" class="content">
-      <p>You are not behind.</p>
-      <p>You are not late.</p>
-      <p>You are carrying more than most people see.</p>
-      <p>And yet, you are still here.</p>
+  <!-- GREETING CARD -->
+  <div class="card" id="card">
+    <h1>Hello.</h1>
+    <p class="soft">You don’t need to rush.</p>
+
+    <div class="tap" id="tap">
+      Tap slowly
     </div>
+  </div>
 
-    <!-- LOCKED SECTION -->
-    <div id="lockedSection" class="locked">
-      <div class="blur"></div>
-      <div class="lock-box">
-        <p>You’ve reached the surface.</p>
-        <p>Go deeper.</p>
+  <!-- UNLOCK MODAL -->
+  <div class="modal hidden" id="modal">
+    <div class="modal-box">
+      <h2>This moment is yours.</h2>
+      <p>Unlock a guided calm experience.</p>
 
-        <button id="unlockBtn">Unlock for ₹29</button>
-        <p class="tiny">One-time • Instant • No account</p>
-      </div>
+      <button id="unlockBtn">Unlock for ₹29</button>
+      <span class="tiny">One time • Instant • Gentle</span>
     </div>
+  </div>
 
-    <!-- PAID CONTENT -->
-    <div id="paidContent" class="content hidden">
-      <p>Close your eyes for 10 seconds.</p>
-      <p>Breathe in slowly.</p>
-      <p>Hold.</p>
-      <p>Release.</p>
-      <p>You don’t need to solve everything tonight.</p>
-      <p>Rest is productive.</p>
-    </div>
+  <!-- PAID CONTENT -->
+  <div class="card hidden" id="paid">
+    <h1>Breathe.</h1>
+    <p>In for 4.</p>
+    <p>Hold for 4.</p>
+    <p>Out for 6.</p>
+    <p class="soft">Nothing else matters right now.</p>
   </div>
 
   <script src="script.js"></script>
