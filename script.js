@@ -1,20 +1,27 @@
+const tap = document.getElementById("tap");
+const modal = document.getElementById("modal");
 const unlockBtn = document.getElementById("unlockBtn");
-const lockedSection = document.getElementById("lockedSection");
-const paidContent = document.getElementById("paidContent");
+const card = document.getElementById("card");
+const paid = document.getElementById("paid");
 
-// Check if already unlocked
-if (localStorage.getItem("unlocked") === "true") {
-  unlockContent();
-}
-
-unlockBtn.addEventListener("click", () => {
-  // TEMPORARY FAKE PAYMENT (replace later)
-  // This simulates payment success
-  localStorage.setItem("unlocked", "true");
-  unlockContent();
+// Tap interaction
+tap.addEventListener("click", () => {
+  modal.classList.remove("hidden");
 });
 
-function unlockContent() {
-  lockedSection.style.display = "none";
-  paidContent.classList.remove("hidden");
+// Fake payment (replace later)
+unlockBtn.addEventListener("click", () => {
+  localStorage.setItem("zen_paid", "true");
+  showPaid();
+});
+
+// Auto-unlock if already paid
+if (localStorage.getItem("zen_paid") === "true") {
+  showPaid();
+}
+
+function showPaid() {
+  modal.classList.add("hidden");
+  card.classList.add("hidden");
+  paid.classList.remove("hidden");
 }
